@@ -9,14 +9,25 @@ public class MeshCount : MonoBehaviour
     void Start()
     {
 		var meshFilter = GetComponent<MeshFilter>();
-		var mesh = meshFilter.sharedMesh;
+		var mesh = meshFilter.mesh;
 
 		Debug.Log($"{gameObject.name} meshcount:{mesh.vertexCount}");
 		Debug.Log($"{gameObject.name} trianglecount:{mesh.triangles.Length}");
 
-		//for(int i = 0; i < 30; i++)
+		var vertices = mesh.vertices;
+
+		for (int i = 0; i < vertices.Length; i++)
+		{
+			vertices[i] = vertices[i] + (Vector3.forward * i * 0.1f);
+			Debug.Log($"{gameObject.name} vertices:{i}: {vertices[i]}");
+		}
+
+		mesh.vertices = vertices;
+
+		//Debug.Log(mesh.bindposes.Length);
+		//for (int i = 0; i < mesh.boneWeights.Length; i++)
 		//{
-		//	Debug.Log($"{gameObject.name} triangle:{i}: {mesh.triangles[i]}");
+		//	Debug.Log($"{gameObject.name} mesh.boneWeights:{i}: {mesh.boneWeights[i]}");
 		//}
 	}
 }
